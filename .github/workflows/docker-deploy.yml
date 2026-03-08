@@ -2,13 +2,13 @@ name: deploy code on self hosted runner in docker container
 on: 
   workflow_dispatch:
 jobs:
-  runs-on: self-hosted
-    deploy:
-      env:
-        DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-      steps:
-        - name: code checkout
-          uses: actions/checkout@4
+  deploy:
+    runs-on: self-hosted
+        env:
+          DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+        steps:
+          - name: code checkout
+            uses: actions/checkout@4
 
-        - name: deploy using docker compose file
-          run: docker-compose up --build
+          - name: deploy using docker compose file
+            run: docker-compose up --build

@@ -4,11 +4,11 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-        env:
-          DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-        steps:
-          - name: code checkout
-            uses: actions/checkout@4
+    env:
+      DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+    steps:
+      - name: code checkout
+        uses: actions/checkout@4
 
-          - name: deploy using docker compose file
-            run: docker-compose up --build
+      - name: deploy using docker compose file
+        run: docker-compose up --build

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Motivation Generator</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+.container{
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    width:420px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.quote{
+    font-size:20px;
+    margin-bottom:15px;
+    color:#333;
+}
+
+.author{
+    font-size:16px;
+    color:#777;
+    margin-bottom:25px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#667eea;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#5a67d8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 Motivation Generator</h1>
+
+<div class="quote" id="quote">
+Click the button to get inspired!
+</div>
+
+<div class="author" id="author"></div>
+
+<button onclick="getQuote()">Generate Quote</button>
+
+</div>
+
+<script>
+
+async function getQuote(){
+
+    const response = await fetch('/get-quote')
+    const data = await response.json()
+
+    document.getElementById('quote').innerText = `"${data.text}"`
+    document.getElementById('author').innerText = `- ${data.author}`
+}
+
+</script>
+
+</body>
+</html>

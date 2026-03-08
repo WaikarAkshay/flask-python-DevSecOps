@@ -1,0 +1,8 @@
+services:
+  flask-app:
+    image: ${DOCKERHUB_USER}/flask-app-image
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+
+    

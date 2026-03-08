@@ -15,5 +15,5 @@ jobs:
       - name: install dependencies
         run: pip install -r requirement.txt
       - name: Run linter
-        run: flake8 app/app.py
+        run: flake8 app.py
         

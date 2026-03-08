@@ -1,0 +1,22 @@
+name: build and push docker image
+on:
+  workflow_dispatch:
+jobs: 
+  build-and-push:
+    runs_on: ubuntu_latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: login docker
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: docker build and push
+        uses: docker/build-push-action@v6
+        with:
+         context: .
+         push: true
+         tags: ${{ vars.DOCKERHUB_USER }}/flask-app-image:${{ github.ref_name }}

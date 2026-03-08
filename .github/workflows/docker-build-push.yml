@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs: 
   build-and-push:
-    runs_on: ubuntu_latest
+    runs-on: ubuntu_latest
     steps:
       - name: checkout code
         uses: actions/checkout@v4

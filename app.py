@@ -25,7 +25,10 @@ quotes = [
         "author": "Norman Vaughan",
     },
     {
-        "text": "Push yourself, because no one else is going to do it for you.",
+        "text": (
+            "Push yourself, because no one else is going "
+            "to do it for you."
+        ),
         "author": "Unknown",
     },
     {

@@ -3,6 +3,6 @@ services:
     image: ${DOCKERHUB_USER}/flask-app-image:master 
     container_name: flask-app
     ports:
-      - "5000:5000"
+      - "80:80"
 
     

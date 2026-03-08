@@ -8,7 +8,7 @@ jobs:
       DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
     steps:
       - name: code checkout
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: deploy using docker compose file
         run: docker-compose up --build

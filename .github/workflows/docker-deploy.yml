@@ -8,7 +8,7 @@ jobs:
       DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
     steps:
       - name: code checkout
-        uses: actions/checkout@v41
+        uses: actions/checkout@v4
 
       - name: setup docker compose
         uses: docker/setup-compose-action@v2

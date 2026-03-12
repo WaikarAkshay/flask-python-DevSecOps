@@ -24,11 +24,11 @@ def home():
 def system_info():
 
     data = {
-    "server": "Demo Flask Server",
-    "python_version": platform.python_version(),
-    "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-    "devops_tip": random.choice(devops_tips)
-}
+        "server": "Demo Flask Server",
+        "python_version": platform.python_version(),
+        "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "devops_tip": random.choice(devops_tips)
+    }
 
     return jsonify(data)
 

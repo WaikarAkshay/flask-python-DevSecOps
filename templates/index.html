@@ -3,336 +3,291 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>System Monitoring Dashboard • Dummy</title>
+  <title>Monitoring Overview </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
       --bg: #0f172a;
-      --card: #1e293b;
+      --panel: #1e293b;
+      --border: #334155;
       --text: #e2e8f0;
       --text-dim: #94a3b8;
       --green: #22c55e;
       --yellow: #eab308;
       --red: #ef4444;
       --blue: #3b82f6;
-      --purple: #8b5cf6;
+      --purple: #a855f7;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 1.5rem;
+      padding: 1rem 1.5rem;
+      overflow: hidden;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin: 0.8rem 0 1.4rem;
     }
 
     .header h1 {
-      font-size: 2.1rem;
+      font-size: 1.7rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
-    .header p {
+    .header .update {
+      font-size: 0.82rem;
       color: var(--text-dim);
-      font-size: 0.95rem;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      max-width: 1400px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      max-width: 1800px;
       margin: 0 auto;
     }
 
-    .card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      border: 1px solid #334155;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.28);
+      transition: all 0.13s ease;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    .panel:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.38);
+      transform: translateY(-1px);
     }
 
-    .card-header {
+    .panel-title {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 1.1rem;
+      gap: 0.5rem;
     }
 
-    .card-header i {
-      font-size: 1.4rem;
-    }
+    .panel-title i { font-size: 1.05rem; }
 
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-
-    .metric {
+    .big-value {
       font-size: 2.4rem;
       font-weight: 700;
-      margin: 0.4rem 0;
+      line-height: 1;
+      margin: 0.3rem 0;
     }
 
-    .unit { font-size: 1.1rem; opacity: 0.8; }
-
-    .progress-container {
-      height: 10px;
-      background: #334155;
-      border-radius: 999px;
-      margin: 1rem 0 0.6rem;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.6s ease;
-    }
+    .unit { font-size: 1rem; opacity: 0.75; }
 
     .status {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-weight: 500;
-      margin-top: 0.6rem;
+      margin-top: 0.4rem;
     }
 
     .good  { color: var(--green); }
     .warn  { color: var(--yellow); }
     .alert { color: var(--red); }
 
-    .grid-2 { grid-column: span 2; }
-
-    .small-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1.2rem;
+    .progress {
+      height: 6px;
+      background: #2d3748;
+      border-radius: 3px;
+      margin: 0.7rem 0 0.3rem;
+      overflow: hidden;
     }
 
-    .mini-card {
-      background: #253549;
-      padding: 1rem;
-      border-radius: 10px;
+    .progress-fill {
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+    }
+
+    .mini-item {
       text-align: center;
     }
 
-    .mini-label { font-size: 0.82rem; color: var(--text-dim); }
-    .mini-value { font-size: 1.4rem; font-weight: 700; }
+    .mini-label {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
 
-    .refresh-btn {
-      display: block;
-      margin: 2.5rem auto 1rem;
-      padding: 0.9rem 2.2rem;
+    .mini-value {
+      font-size: 1.18rem;
+      font-weight: 600;
+    }
+
+    .refresh {
+      position: fixed;
+      bottom: 1rem;
+      right: 1.5rem;
       background: var(--blue);
       color: white;
       border: none;
-      border-radius: 10px;
-      font-size: 1.05rem;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.1rem;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       transition: all 0.2s;
     }
 
-    .refresh-btn:hover {
+    .refresh:hover {
       background: #2563eb;
-      transform: translateY(-1px);
+      transform: scale(1.08);
     }
 
-    @media (max-width: 900px) {
-      .grid-2 { grid-column: span 1; }
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+      .big-value { font-size: 2.1rem; }
+    }
+
+    @media (max-height: 720px) {
+      body { padding: 0.6rem 1rem; font-size: 0.95rem; }
+      .header { margin: 0.5rem 0 0.8rem; }
+      .panel { padding: 0.9rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>System Monitoring Dashboard</h1>
-  <p>Dummy Real-time Server & Application Metrics • Last updated: <span id="last-update">just now</span></p>
+  <h1>System Overview</h1>
+  <div class="update">Last update: <span id="last-update">just now</span></div>
 </div>
 
 <div class="grid">
 
-  <!-- Overview Cards -->
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-server" style="color:var(--blue)"></i>
-      <div class="card-title">Server Overview</div>
-    </div>
-    <div class="metric" id="uptime">12d 4h 37m</div>
-    <div style="font-size:0.95rem; color:var(--text-dim);">System Uptime</div>
-
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Hostname</div>
-        <div class="mini-value" id="hostname">web-01-prod</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">OS</div>
-        <div class="mini-value">Ubuntu 24.04</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Load Avg</div>
-        <div class="mini-value" id="load">1.12 / 0.98 / 0.85</div>
-      </div>
-    </div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-server" style="color:var(--blue)"></i> Host</div>
+    <div class="big-value" id="hostname">web-01-prod</div>
+    <div style="font-size:0.85rem; color:var(--text-dim);">Ubuntu 24.04 LTS</div>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-microchip" style="color:var(--purple)"></i>
-      <div class="card-title">CPU Usage</div>
-    </div>
-    <div class="metric" id="cpu">42<span class="unit">%</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="cpu-bar" style="width:42%; background:var(--green);"></div>
-    </div>
-    <div class="status good"><i class="fas fa-check-circle"></i> Normal</div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-clock" style="color:var(--purple)"></i> Uptime</div>
+    <div class="big-value" id="uptime">12d 4h</div>
+    <div class="status good"><i class="fas fa-check-circle"></i> Stable</div>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-memory" style="color:var(--yellow)"></i>
-      <div class="card-title">Memory Usage</div>
-    </div>
-    <div class="metric" id="memory">11.4<span class="unit">/ 16 GB</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="mem-bar" style="width:71%; background:var(--yellow);"></div>
-    </div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-microchip" style="color:var(--purple)"></i> CPU</div>
+    <div class="big-value" id="cpu">38<span class="unit">%</span></div>
+    <div class="progress"><div class="progress-fill" id="cpu-fill" style="width:38%;background:var(--green)"></div></div>
+    <div class="status good"><i class="fas fa-check"></i> Normal</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-memory" style="color:var(--yellow)"></i> Memory</div>
+    <div class="big-value" id="memory">9.2<span class="unit">/16 GB</span></div>
+    <div class="progress"><div class="progress-fill" id="mem-fill" style="width:57%;background:var(--yellow)"></div></div>
     <div class="status warn"><i class="fas fa-exclamation-triangle"></i> Warning</div>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-hard-drive" style="color:var(--green)"></i>
-      <div class="card-title">Disk Usage</div>
-    </div>
-    <div class="metric" id="disk">218<span class="unit">/ 480 GB</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="disk-bar" style="width:45%; background:var(--green);"></div>
-    </div>
-    <div class="status good"><i class="fas fa-check-circle"></i> Healthy</div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-hard-drive" style="color:var(--green)"></i> Disk (root)</div>
+    <div class="big-value" id="disk">214<span class="unit">/480 GB</span></div>
+    <div class="progress"><div class="progress-fill" id="disk-fill" style="width:45%;background:var(--green)"></div></div>
+    <div class="status good"><i class="fas fa-check"></i> Healthy</div>
   </div>
 
-  <!-- Wider cards -->
-  <div class="card grid-2">
-    <div class="card-header">
-      <i class="fas fa-network-wired" style="color:#06b6d4"></i>
-      <div class="card-title">Network I/O (last 60s)</div>
-    </div>
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Receive</div>
-        <div class="mini-value" id="net-rx">2.8 <small>MB/s</small></div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-network-wired" style="color:#06b6d4"></i> Network</div>
+    <div class="mini-grid">
+      <div class="mini-item">
+        <div class="mini-label">RX</div>
+        <div class="mini-value" id="net-rx">1.9 <small>MB/s</small></div>
       </div>
-      <div class="mini-card">
-        <div class="mini-label">Transmit</div>
-        <div class="mini-value" id="net-tx">1.4 <small>MB/s</small></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Connections</div>
-        <div class="mini-value" id="connections">284</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Errors</div>
-        <div class="mini-value" style="color:var(--green);">0</div>
+      <div class="mini-item">
+        <div class="mini-label">TX</div>
+        <div class="mini-value" id="net-tx">0.8 <small>MB/s</small></div>
       </div>
     </div>
   </div>
 
-  <div class="card grid-2">
-    <div class="card-header">
-      <i class="fas fa-chart-line" style="color:var(--purple)"></i>
-      <div class="card-title">Application Metrics</div>
-    </div>
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Requests/sec</div>
-        <div class="mini-value" id="req-sec">142</div>
+  <div class="panel">
+    <div class="panel-title"><i class="fas fa-chart-line" style="color:var(--purple)"></i> App</div>
+    <div class="mini-grid">
+      <div class="mini-item">
+        <div class="mini-label">Req/s</div>
+        <div class="mini-value" id="reqs">128</div>
       </div>
-      <div class="mini-card">
-        <div class="mini-label">Avg Latency</div>
-        <div class="mini-value">38 <small>ms</small></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Error Rate</div>
-        <div class="mini-value" style="color:var(--green);">0.04%</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Python Ver</div>
-        <div class="mini-value" id="python">3.11.9</div>
+      <div class="mini-item">
+        <div class="mini-label">Latency</div>
+        <div class="mini-value">41 <small>ms</small></div>
       </div>
     </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><i class="fab fa-python" style="color:#3f7caf"></i> Python</div>
+    <div class="big-value" id="python">3.11.9</div>
+    <div style="font-size:0.85rem; color:var(--text-dim);">Active</div>
   </div>
 
 </div>
 
-<button class="refresh-btn" onclick="refreshDashboard()">
-  <i class="fas fa-sync-alt"></i> Refresh Dashboard
-</button>
+<button class="refresh" onclick="refresh()" title="Refresh now"><i class="fas fa-sync-alt"></i></button>
 
 <script>
-  const tips = [
-    "Automate everything you can automate.",
-    "Monitor before you scale.",
-    "Treat infrastructure as code — always.",
-    "Small, frequent deployments reduce risk.",
-    "Observability > logging.",
-    "Use golden signals: latency, traffic, errors, saturation."
-  ];
+  const statuses = { good: 'var(--green)', warn: 'var(--yellow)', alert: 'var(--red)' };
 
-  function getRandomStatusClass(value, warn=70, danger=90) {
-    if (value >= danger) return "alert";
-    if (value >= warn) return "warn";
-    return "good";
+  function randomBetween(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function updateStatus(el, value, warn=70, crit=90) {
+    let cls = value >= crit ? 'alert' : value >= warn ? 'warn' : 'good';
+    let color = value >= crit ? statuses.alert : value >= warn ? statuses.warn : statuses.good;
+    el.className = 'status ' + cls;
+    return color;
   }
 
-  function refreshDashboard(simulate = true) {
-    // In real app you would fetch('/api/metrics')
-    // Here we simulate realistic changes
+  function refresh() {
+    const cpu = randomBetween(15, 88);
+    const memPct = randomBetween(45, 92);
+    const memGb = (memPct / 100 * 16).toFixed(1);
+    const disk = randomBetween(30, 68);
+    const rx = (Math.random() * 4 + 0.3).toFixed(1);
+    const tx = (Math.random() * 2 + 0.2).toFixed(1);
+    const reqs = randomBetween(80, 220);
 
-    const cpu = Math.floor(Math.random() * 100);
-    const mem = Math.floor(50 + Math.random() * 45);
-    const disk = Math.floor(20 + Math.random() * 70);
-    const rx = (Math.random() * 5).toFixed(1);
-    const tx = (Math.random() * 3).toFixed(1);
+    document.getElementById('cpu').textContent = cpu;
+    document.getElementById('cpu-fill').style.width = cpu + '%';
+    document.getElementById('cpu-fill').style.background = updateStatus(document.getElementById('cpu').parentElement.querySelector('.status'), cpu);
 
-    document.getElementById("cpu").textContent = cpu;
-    document.getElementById("cpu-bar").style.width = cpu + "%";
-    document.getElementById("cpu-bar").style.background = 
-      cpu >= 90 ? "var(--red)" : cpu >= 70 ? "var(--yellow)" : "var(--green)";
+    document.getElementById('memory').innerHTML = memGb + '<span class="unit">/16 GB</span>';
+    document.getElementById('mem-fill').style.width = memPct + '%';
+    document.getElementById('mem-fill').style.background = updateStatus(document.getElementById('memory').parentElement.querySelector('.status'), memPct);
 
-    document.getElementById("memory").innerHTML = (mem/10).toFixed(1) + "<span class='unit'>/ 16 GB</span>";
-    document.getElementById("mem-bar").style.width = mem + "%";
-    document.getElementById("mem-bar").style.background = 
-      mem >= 90 ? "var(--red)" : mem >= 70 ? "var(--yellow)" : "var(--green)";
+    document.getElementById('disk').innerHTML = disk + '<span class="unit">/480 GB</span>';
+    document.getElementById('disk-fill').style.width = disk + '%';
 
-    document.getElementById("disk").innerHTML = disk + "<span class='unit'>/ 480 GB</span>";
-    document.getElementById("disk-bar").style.width = Math.min(disk,100) + "%";
+    document.getElementById('net-rx').innerHTML = rx + ' <small>MB/s</small>';
+    document.getElementById('net-tx').innerHTML = tx + ' <small>MB/s</small>';
 
-    document.getElementById("net-rx").innerHTML = rx + " <small>MB/s</small>";
-    document.getElementById("net-tx").innerHTML = tx + " <small>MB/s</small>";
+    document.getElementById('reqs').textContent = reqs;
 
-    document.getElementById("last-update").textContent = new Date().toLocaleTimeString();
-
-    // Just for fun — random tip in console
-    console.log("%cDevOps Tip: " + tips[Math.floor(Math.random()*tips.length)], "color:#8b5cf6; font-weight:bold;");
+    document.getElementById('last-update').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
   }
 
-  // Initial load + auto-refresh simulation
-  refreshDashboard();
-  setInterval(() => refreshDashboard(), 8000);
+  // Initial + periodic refresh
+  refresh();
+  setInterval(refresh, 7000);
 </script>
 
 </body>

@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <title>DevOps Utility Dashboard</title>
 
 <style>
 
 body{
-    font-family: "Segoe UI", sans-serif;
+    font-family:"Segoe UI",sans-serif;
     background:#0f172a;
     margin:0;
     display:flex;
@@ -83,7 +82,7 @@ button:hover{
 <h1>DevOps Utility Dashboard</h1>
 
 <div class="card">
-<div class="label">Servername</div>
+<div class="label">Server Name</div>
 <div class="value" id="servername">Loading...</div>
 </div>
 
@@ -109,17 +108,17 @@ Loading DevOps tip...
 
 async function loadData(){
 
-const response = await fetch("/api/system-info")
-const data = await response.json()
+    const response = await fetch("/api/system-info");
+    const data = await response.json();
 
-document.getElementById("Servername").innerText = data.server
-document.getElementById("python").innerText = data.python_versions
-document.getElementById("time").innerText = data.time
-document.getElementById("tip").innerText = "DevOps Tip: " + data.devops_tip
+    document.getElementById("servername").innerText = data.server;
+    document.getElementById("python").innerText = data.python_version;
+    document.getElementById("time").innerText = data.time;
+    document.getElementById("tip").innerText = "DevOps Tip: " + data.devops_tip;
 
 }
 
-loadData()
+loadData();
 
 </script>
 

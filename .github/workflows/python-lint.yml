@@ -15,7 +15,7 @@ jobs:
       - name: set up python ${{ matrix.python-version}}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version}}
+          python-version: {{ matrix.python-version}}
       - name: install dependencies
         run: pip install -r requirement.txt
       - name: Run linter

@@ -112,8 +112,8 @@ async function loadData(){
 const response = await fetch("/api/system-info")
 const data = await response.json()
 
-document.getElementById("hostname").innerText = data.hostname
-document.getElementById("python").innerText = data.python_version
+document.getElementById("Servername").innerText = data.server
+document.getElementById("python").innerText = data.python_versions
 document.getElementById("time").innerText = data.time
 document.getElementById("tip").innerText = "DevOps Tip: " + data.devops_tip
 

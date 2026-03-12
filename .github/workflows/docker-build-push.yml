@@ -1,7 +1,7 @@
 name: build and push docker image
 on:
   workflow_run:
-    workflows: [python-lint]
+    workflows: ["python lint"]
     types:
       - completed
       

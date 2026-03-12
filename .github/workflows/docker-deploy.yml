@@ -1,8 +1,13 @@
 name: deploy code on self hosted runner in docker container
 on: 
+  workflow_run:
+    workflows: [docker-deploy]
+    types:
+      - completed
   workflow_dispatch:
 jobs:
   deploy:
+    if ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: self-hosted
     env:
       DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}

@@ -1,8 +1,14 @@
 name: build and push docker image
 on:
+  workflow_run:
+    workflows: [python-lint]
+    types:
+      - completed
+      
   workflow_dispatch:
-jobs: 
+jobs:
   build-and-push:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} 
     runs-on: self-hosted
     steps:
       - name: checkout code

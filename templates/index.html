@@ -1,90 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Motivation Generator</title>
+<title>DevOps Utility Dashboard</title>
 
 <style>
 
 body{
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#667eea,#764ba2);
-    height:100vh;
+    font-family: "Segoe UI", sans-serif;
+    background:#0f172a;
+    margin:0;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:0;
+    height:100vh;
+    color:white;
 }
 
 .container{
-    background:white;
+    background:#1e293b;
     padding:40px;
     border-radius:12px;
     width:420px;
-    text-align:center;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
 }
 
 h1{
-    margin-bottom:20px;
+    text-align:center;
+    margin-bottom:30px;
 }
 
-.quote{
-    font-size:20px;
-    margin-bottom:15px;
-    color:#333;
+.card{
+    background:#334155;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:12px;
 }
 
-.author{
-    font-size:16px;
-    color:#777;
-    margin-bottom:25px;
+.label{
+    font-size:13px;
+    color:#cbd5f5;
+}
+
+.value{
+    font-size:18px;
+    margin-top:5px;
+}
+
+.tip{
+    margin-top:20px;
+    background:#6366f1;
+    padding:15px;
+    border-radius:8px;
 }
 
 button{
-    padding:12px 25px;
+    margin-top:20px;
+    width:100%;
+    padding:12px;
     border:none;
-    border-radius:8px;
-    background:#667eea;
+    background:#22c55e;
     color:white;
     font-size:16px;
+    border-radius:8px;
     cursor:pointer;
-    transition:0.3s;
 }
 
 button:hover{
-    background:#5a67d8;
+    background:#16a34a;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🚀 Motivation Generator</h1>
+<h1>DevOps Utility Dashboard</h1>
 
-<div class="quote" id="quote">
-Click the button to get inspired!
+<div class="card">
+<div class="label">Hostname</div>
+<div class="value" id="hostname">Loading...</div>
 </div>
 
-<div class="author" id="author"></div>
+<div class="card">
+<div class="label">Python Version</div>
+<div class="value" id="python">Loading...</div>
+</div>
 
-<button onclick="getQuote()">Generate Quote</button>
+<div class="card">
+<div class="label">Server Time</div>
+<div class="value" id="time">Loading...</div>
+</div>
+
+<div class="tip" id="tip">
+Loading DevOps tip...
+</div>
+
+<button onclick="loadData()">Refresh Data</button>
 
 </div>
 
 <script>
 
-async function getQuote(){
+async function loadData(){
 
-    const response = await fetch('/get-quote')
-    const data = await response.json()
+const response = await fetch("/api/system-info")
+const data = await response.json()
 
-    document.getElementById('quote').innerText = `"${data.text}"`
-    document.getElementById('author').innerText = `- ${data.author}`
+document.getElementById("hostname").innerText = data.hostname
+document.getElementById("python").innerText = data.python_version
+document.getElementById("time").innerText = data.time
+document.getElementById("tip").innerText = "DevOps Tip: " + data.devops_tip
+
 }
+
+loadData()
 
 </script>
 

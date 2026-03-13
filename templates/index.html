@@ -1,339 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>System Monitoring Dashboard </title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay Waikar • DevOps Engineer</title>
+  <meta name="description" content="DevOps Engineer at TCS | Pune, India | Automation • CI/CD • Cloud Infrastructure" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #e2e8f0;
-      --text-dim: #94a3b8;
-      --green: #22c55e;
-      --yellow: #eab308;
-      --red: #ef4444;
-      --blue: #3b82f6;
-      --purple: #8b5cf6;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 1.5rem;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
-
-    .header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .header h1 {
-      font-size: 2.1rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .header p {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      border: 1px solid #334155;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-    }
-
-    .card-header {
+    main {
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 1.1rem;
+      justify-content: center;
+      padding: 40px 24px;
     }
-
-    .card-header i {
-      font-size: 1.4rem;
-    }
-
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-
-    .metric {
-      font-size: 2.4rem;
-      font-weight: 700;
-      margin: 0.4rem 0;
-    }
-
-    .unit { font-size: 1.1rem; opacity: 0.8; }
-
-    .progress-container {
-      height: 10px;
-      background: #334155;
-      border-radius: 999px;
-      margin: 1rem 0 0.6rem;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.6s ease;
-    }
-
-    .status {
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-top: 0.6rem;
-    }
-
-    .good  { color: var(--green); }
-    .warn  { color: var(--yellow); }
-    .alert { color: var(--red); }
-
-    .grid-2 { grid-column: span 2; }
-
-    .small-metrics {
+    .container {
+      max-width: 1100px;
+      width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1.2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s forwards 0.3s;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .mini-card {
-      background: #253549;
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
+    header { text-align: center; padding: 32px 0; }
+    .name {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      color: #14b8a6;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .location { color: #94a3b8; font-size: 1.1rem; }
+
+    section { margin-bottom: 32px; }
+    h2 {
+      font-size: 1.5rem;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+      position: relative;
+      display: inline-block;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 40%; height: 2px;
+      background: linear-gradient(to right, #14b8a6, transparent);
     }
 
-    .mini-label { font-size: 0.82rem; color: var(--text-dim); }
-    .mini-value { font-size: 1.4rem; font-weight: 700; }
-
-    .refresh-btn {
-      display: block;
-      margin: 2.5rem auto 1rem;
-      padding: 0.9rem 2.2rem;
-      background: var(--blue);
-      color: white;
-      border: none;
-      border-radius: 10px;
+    .about p {
       font-size: 1.05rem;
-      cursor: pointer;
-      transition: all 0.2s;
+      color: #cbd5e1;
+      max-width: 520px;
     }
 
-    .refresh-btn:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .tag {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+    }
+    .tag:hover {
+      transform: translateY(-3px);
+      border-color: #14b8a6;
+      box-shadow: 0 8px 24px rgba(20,184,166,0.15);
+      color: #e2e8f0;
+    }
+
+    .exp .item {
+      margin-bottom: 20px;
+    }
+    .role { font-weight: 600; color: #f1f5f9; }
+    .company { color: #14b8a6; }
+    .period { color: #64748b; font-size: 0.95rem; }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: transparent;
+      border: 1px solid #14b8a6;
+      color: #14b8a6;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #14b8a6;
+      color: #0f172a;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(20,184,166,0.25);
+    }
+    .btn.outline {
+      border-color: #475569;
+      color: #cbd5e1;
+    }
+    .btn.outline:hover {
+      border-color: #64748b;
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #475569;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
     }
 
     @media (max-width: 900px) {
-      .grid-2 { grid-column: span 1; }
+      .container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .about p { margin: 0 auto; }
+      .actions { justify-content: center; }
+    }
+
+    @media (max-height: 800px) {
+      body { overflow-y: auto; }
+      main { padding: 60px 24px; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>System Monitoring Dashboard</h1>
-  <p> Real-time Server & Application Metrics • Last updated: <span id="last-update">just now</span></p>
-</div>
+  <header>
+    <h1 class="name">Akshay Waikar</h1>
+    <div class="title">DevOps Engineer  @ TCS</div>
+    <div class="location">Pune, Maharashtra, India</div>
+  </header>
 
-<div class="grid">
+  <main>
+    <div class="container">
 
-  <!-- Overview Cards -->
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-server" style="color:var(--blue)"></i>
-      <div class="card-title">Server Overview</div>
-    </div>
-    <div class="metric" id="uptime">12d 4h 37m</div>
-    <div style="font-size:0.95rem; color:var(--text-dim);">System Uptime</div>
+      <div>
+        <section class="about">
+          <h2>About</h2>
+          <p>DevOps Engineer with 4+ years building reliable, automated infrastructure and delivery pipelines. Focused on CI/CD, cloud-native deployments, scripting & observability to help teams ship faster and more securely.</p>
+          <p>Currently at Tata Consultancy Services — turning complex enterprise requirements into production-grade automation.</p>
+        </section>
 
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Hostname</div>
-        <div class="mini-value" id="hostname">web-01-prod</div>
+        <section>
+          <h2>Experience</h2>
+          <div class="exp">
+            <div class="item">
+              <div class="role">DevOps Engineer / Automation Specialist</div>
+              <div class="company">Tata Consultancy Services (TCS)</div>
+              <div class="period">~2021 – Present</div>
+            </div>
+            <div class="item">
+              <div class="role">Earlier Roles in Development & Automation</div>
+              <div class="period">Details on <a href="https://www.linkedin.com/in/akshay-waikar-985936223" target="_blank">LinkedIn</a></div>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="mini-card">
-        <div class="mini-label">OS</div>
-        <div class="mini-value">Ubuntu 24.04</div>
+
+      <div>
+        <section>
+          <h2>Core Skills</h2>
+          <div class="skills">
+            <span class="tag">CI/CD (Jenkins, GitHub Actions)</span>
+            <span class="tag">Docker & Containerization</span>
+            <span class="tag">Kubernetes Basics</span>
+            <span class="tag">Terraform (IaC)</span>
+            <span class="tag">AWS / Cloud Platforms</span>
+            <span class="tag">Ansible Automation</span>
+            <span class="tag">Linux & Shell/Python Scripting</span>
+            <span class="tag">Monitoring (Prometheus/Grafana)</span>
+            <span class="tag">Git & Version Control</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Let's Connect</h2>
+          <p style="color:#94a3b8; margin-bottom:20px;">
+            Open to DevOps discussions, automation projects, knowledge sharing, or new opportunities.
+          </p>
+          <div class="actions">
+            <a href="https://www.linkedin.com/in/akshay-waikar-985936223" target="_blank" class="btn">LinkedIn Profile</a>
+            <a href="mailto:your.email@example.com" class="btn outline">Email Me</a>
+          </div>
+        </section>
       </div>
-      <div class="mini-card">
-        <div class="mini-label">Load Avg</div>
-        <div class="mini-value" id="load">1.12 / 0.98 / 0.85</div>
-      </div>
+
     </div>
-  </div>
+  </main>
 
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-microchip" style="color:var(--purple)"></i>
-      <div class="card-title">CPU Usage</div>
-    </div>
-    <div class="metric" id="cpu">42<span class="unit">%</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="cpu-bar" style="width:42%; background:var(--green);"></div>
-    </div>
-    <div class="status good"><i class="fas fa-check-circle"></i> Normal</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-memory" style="color:var(--yellow)"></i>
-      <div class="card-title">Memory Usage</div>
-    </div>
-    <div class="metric" id="memory">11.4<span class="unit">/ 16 GB</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="mem-bar" style="width:71%; background:var(--yellow);"></div>
-    </div>
-    <div class="status warn"><i class="fas fa-exclamation-triangle"></i> Warning</div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <i class="fas fa-hard-drive" style="color:var(--green)"></i>
-      <div class="card-title">Disk Usage</div>
-    </div>
-    <div class="metric" id="disk">218<span class="unit">/ 480 GB</span></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="disk-bar" style="width:45%; background:var(--green);"></div>
-    </div>
-    <div class="status good"><i class="fas fa-check-circle"></i> Healthy</div>
-  </div>
-
-  <!-- Wider cards -->
-  <div class="card grid-2">
-    <div class="card-header">
-      <i class="fas fa-network-wired" style="color:#06b6d4"></i>
-      <div class="card-title">Network I/O (last 60s)</div>
-    </div>
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Receive</div>
-        <div class="mini-value" id="net-rx">2.8 <small>MB/s</small></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Transmit</div>
-        <div class="mini-value" id="net-tx">1.4 <small>MB/s</small></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Connections</div>
-        <div class="mini-value" id="connections">284</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Errors</div>
-        <div class="mini-value" style="color:var(--green);">0</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card grid-2">
-    <div class="card-header">
-      <i class="fas fa-chart-line" style="color:var(--purple)"></i>
-      <div class="card-title">Application Metrics</div>
-    </div>
-    <div class="small-metrics">
-      <div class="mini-card">
-        <div class="mini-label">Requests/sec</div>
-        <div class="mini-value" id="req-sec">142</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Avg Latency</div>
-        <div class="mini-value">38 <small>ms</small></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Error Rate</div>
-        <div class="mini-value" style="color:var(--green);">0.04%</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Python Ver</div>
-        <div class="mini-value" id="python">3.11.9</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<button class="refresh-btn" onclick="refreshDashboard()">
-  <i class="fas fa-sync-alt"></i> Refresh Dashboard
-</button>
-
-<script>
-  const tips = [
-    "Automate everything you can automate.",
-    "Monitor before you scale.",
-    "Treat infrastructure as code — always.",
-    "Small, frequent deployments reduce risk.",
-    "Observability > logging.",
-    "Use golden signals: latency, traffic, errors, saturation."
-  ];
-
-  function getRandomStatusClass(value, warn=70, danger=90) {
-    if (value >= danger) return "alert";
-    if (value >= warn) return "warn";
-    return "good";
-  }
-
-  function refreshDashboard(simulate = true) {
-    // In real app you would fetch('/api/metrics')
-    // Here we simulate realistic changes
-
-    const cpu = Math.floor(Math.random() * 100);
-    const mem = Math.floor(50 + Math.random() * 45);
-    const disk = Math.floor(20 + Math.random() * 70);
-    const rx = (Math.random() * 5).toFixed(1);
-    const tx = (Math.random() * 3).toFixed(1);
-
-    document.getElementById("cpu").textContent = cpu;
-    document.getElementById("cpu-bar").style.width = cpu + "%";
-    document.getElementById("cpu-bar").style.background = 
-      cpu >= 90 ? "var(--red)" : cpu >= 70 ? "var(--yellow)" : "var(--green)";
-
-    document.getElementById("memory").innerHTML = (mem/10).toFixed(1) + "<span class='unit'>/ 16 GB</span>";
-    document.getElementById("mem-bar").style.width = mem + "%";
-    document.getElementById("mem-bar").style.background = 
-      mem >= 90 ? "var(--red)" : mem >= 70 ? "var(--yellow)" : "var(--green)";
-
-    document.getElementById("disk").innerHTML = disk + "<span class='unit'>/ 480 GB</span>";
-    document.getElementById("disk-bar").style.width = Math.min(disk,100) + "%";
-
-    document.getElementById("net-rx").innerHTML = rx + " <small>MB/s</small>";
-    document.getElementById("net-tx").innerHTML = tx + " <small>MB/s</small>";
-
-    document.getElementById("last-update").textContent = new Date().toLocaleTimeString();
-
-    // Just for fun — random tip in console
-    console.log("%cDevOps Tip: " + tips[Math.floor(Math.random()*tips.length)], "color:#8b5cf6; font-weight:bold;");
-  }
-
-  // Initial load + auto-refresh simulation
-  refreshDashboard();
-  setInterval(() => refreshDashboard(), 8000);
-</script>
+  <footer>
+    © 2026 Akshay Waikar • Built with clean code & infrastructure mindset
+  </footer>
 
 </body>
 </html>

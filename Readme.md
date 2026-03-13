@@ -5,8 +5,6 @@ Built with clean HTML + CSS and served using a lightweight **Flask** application
 
 Current vibe: professional, infrastructure-minded, terminal-inspired accents, subtle hover effects.
 
-Live demo (when deployed):  
-https://your-domain.com (replace with actual link once hosted)
 
 ## Features
 

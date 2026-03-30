@@ -1,0 +1,16 @@
+name: Dependency scanning
+on:
+  workflow_call:
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: install pip-audit
+        run: pip install pip-audit
+
+      - name: audit dependencies
+        run: pip-audit -r requirements.txt

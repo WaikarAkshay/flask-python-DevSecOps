@@ -3,4 +3,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  runs-on: ubuntu-latest
+  
+    code-quality:
+      uses: ./.github/workflows/code-quality-check.yml
+    
+    secret-scan:
+      uses: ./.github/workflows/secret-scan.yml
+
+    dependency-check:
+      uses: ./.github/workflows/dependency-scan.yml
+
+    docker-lint:
+      uses: ./.github/workflows/docker-lint.yml
+
+    docker-build-push:
+      uses: ./.github/workflows/docker-build-push.yml
+
+    docker-image-scan:
+      uses: ./.github/workflows/image-scan.yml
+
+    docker-deploy-to-server:
+      uses: ./.github/workflows/deploy-to-server.yml
+    

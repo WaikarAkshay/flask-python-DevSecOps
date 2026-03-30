@@ -30,5 +30,7 @@ jobs:
       secrets: inherit
 
     docker-deploy-to-server:
+      needs: [docker-image-scan]
       uses: ./.github/workflows/deploy-to-server.yml
+      secrets: inherit
     

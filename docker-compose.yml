@@ -1,6 +1,6 @@
 services:
   flask-app:
-    image: ${DOCKERHUB_USER}/flask-app-image:${DOCKER_TAG} 
+    image: ${DOCKERHUB_USERNAME}/flask-app-image:${DOCKER_TAG} 
     container_name: flask-app
     ports:
       - "80:5000"

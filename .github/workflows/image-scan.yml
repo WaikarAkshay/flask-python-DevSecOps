@@ -18,7 +18,7 @@ jobs:
       - name: Trivy Scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: ${{ vars.DOCKERHUB_USER }}/flask-app-image:latest
+          image-ref: ${{ secrets.DOCKERHUB_USER }}/flask-app-image:latest
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           trivyignore: ${{ github.workspace }}/.trivyignore

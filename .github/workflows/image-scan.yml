@@ -1,6 +1,8 @@
 name: docker image scan
 on:
-  workflow_call:
+  push:
+    braches:
+      [main]
 
 jobs:
   docker-image-scan:

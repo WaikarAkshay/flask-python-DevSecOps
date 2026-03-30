@@ -29,6 +29,6 @@ jobs:
       uses: ./.github/workflows/image-scan.yml
       secrets: inherit
 
-    # docker-deploy-to-server:
-    #   uses: ./.github/workflows/deploy-to-server.yml
+    docker-deploy-to-server:
+      uses: ./.github/workflows/deploy-to-server.yml
     

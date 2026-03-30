@@ -4,6 +4,9 @@ on:
 jobs:
   connect-to-server:
     runs-on: ubuntu-latest
+    env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKER_TAG: ${{ github.sha }}
 
     steps:
       - name: checkout code
@@ -38,5 +41,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             echo "running the compose file...."
-            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ vars.DOCKERHUB_USER }} --password-stdin
-            sudo docker compose up -d --pull always --force-recreate
+            export DOCKERHUB_USERNAME=${{ vars.DOCKERHUB_USERNAME }}
+            export DOCKER_TAG=${{ github.sha }}
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+            cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always

@@ -24,6 +24,6 @@ jobs:
          context: .
          push: true
          tags: |
-            ${{ secrets.DOCKERHUB_USER }}/flask-app-image:${{ github.ref_name }}
-            ${{ secrets.DOCKERHUB_USER }}/flask-app-image:latest
-            ${{ secrets.DOCKERHUB_USER }}/flask-app-image:${{ github.sha}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/flask-app-image:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/flask-app-image:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/flask-app-image:${{ github.sha}}

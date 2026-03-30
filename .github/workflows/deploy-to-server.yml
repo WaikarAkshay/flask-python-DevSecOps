@@ -7,7 +7,7 @@ jobs:
 
     steps:
       - name: checkout code
-        uses : checkout@actionsv4
+        uses : actions/checkout@v4
 
       - name: secure ssh to server
         uses: appleboy/ssh-action@v1

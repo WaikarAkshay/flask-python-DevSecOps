@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkput code
-        uses: actions@actions@v4
+        uses: checkout@actions@v4
 
       - name: login docker
         uses: docker/login-action@v3

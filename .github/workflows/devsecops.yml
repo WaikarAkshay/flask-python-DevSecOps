@@ -16,12 +16,12 @@ jobs:
     docker-lint:
       uses: ./.github/workflows/docker-lint.yml
 
-    docker-build-push:
-      uses: ./.github/workflows/docker-build-push.yml
+    # docker-build-push:
+    #   uses: ./.github/workflows/docker-build-push.yml
 
-    docker-image-scan:
-      uses: ./.github/workflows/image-scan.yml
+    # docker-image-scan:
+    #   uses: ./.github/workflows/image-scan.yml
 
-    docker-deploy-to-server:
-      uses: ./.github/workflows/deploy-to-server.yml
+    # docker-deploy-to-server:
+    #   uses: ./.github/workflows/deploy-to-server.yml
     

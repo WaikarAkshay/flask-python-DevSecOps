@@ -1,0 +1,42 @@
+name: Deploy to server
+on:
+  workflow_call:
+jobs:
+  connect-to-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses : checkout@actionsv4
+
+      - name: secure ssh to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ vars.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            echo "updating the server"
+            sudo apt-get install update && apt-get install docker.io docker-compose-v2 -y
+            sudo usermod -aG docker $USER
+            mkdir devops
+
+      - name: secure copy to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ vars.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: docker-compose.yml
+          target: ~/devops
+
+      - name: ssh to run the container
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ vars.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            echo "running the compose file...."
+            echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ vars.DOCKERHUB_USER }} --password-stdin
+            sudo docker compose up -d --pull always --force-recreate

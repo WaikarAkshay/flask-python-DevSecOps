@@ -20,12 +20,12 @@ jobs:
           key: ${{ secrets.PASSWORD }}
           script: |
             echo "updating the server"
-            sudo apt-get update && apt-get install docker.io docker-compose-v2 -y
+            sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
             sudo usermod -aG docker $USER
             sudo systemctl start docker
             sudo systemctl enable docker
             docker --version || sudo docker --version
-            mkdir -p devops
+            sudo mkdir -p devops
 
       - name: secure copy to server
         uses: appleboy/scp-action@v1
@@ -47,4 +47,4 @@ jobs:
             export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
             export DOCKER_TAG=${{ github.sha }}
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-            cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
+            cd ~/devops && sudo docker compose down && docker compose up -d --build --force-recreate --pull always
